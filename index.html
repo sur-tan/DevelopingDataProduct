@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Word Counter</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Word Counter">
+  <meta name="author" content="Sur Tan (22 Nov 2015)">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Word Counter</h1>
+    <h2>Project for Developing Data Products</h2>
+    <p>Sur Tan (22 Nov 2015)<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>About Word Counter</h2>
+  </hgroup>
+  <article data-timings="">
+    <hr>
+
+<p>&#39;Words Counter&#39; is a simple shiny application to count the number of words and characters of a text. It also finds the top 10 words most frequently used and the percentage each word is used within the text.</p>
+
+<p><a href="https://sur-tan.shinyapps.io/shinyapp">https://sur-tan.shinyapps.io/shinyapp</a></p>
+
+<p>How to Use:</p>
+
+<ul>
+<li>Type or paste the text in the input text box.</li>
+<li>Click &#39;Count&#39; button. </li>
+<li>The output will be displayed in the &#39;Summary&#39; section.</li>
+</ul>
+
+<p>Limitations:</p>
+
+<p>&#39;Word Counter&#39; makes its own assumption to define the meaning of a word. Refer to next slide on those assumptions.  </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>How It Works</h2>
+  </hgroup>
+  <article data-timings="">
+    <hr>
+
+<p>&#39;Word Counter&#39; makes the following assumptions to process the text: </p>
+
+<ul>
+<li>Space is the separator of words. </li>
+<li>Carriage return separates two different paragraphs, so it is converted to a space to separate the last word from the current paragraph to the first word of the next paragrah.</li>
+<li><p>Double, leading or trailing spaces are removed first as they will include as an additional count when there is no word tie to these spaces.</p></li>
+<li><p>Carriage return is not considered as a character, so it is removed before counting number of characters.</p></li>
+<li><p>Some words are together with other special characters such as question mark, apostrophe, etc, e.g. &#39;How?&#39;. When counting the top 10 frequently used words, these will be removed so that &#39;How&#39; and &#39;How?&#39; are considered the same words. Note: only a few special characters are included here: ? , . ! &quot; &#39; ( )  </p></li>
+<li><p>The words are all changed to small case before counting.</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Codes Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <hr>
+
+<p>The codes are too long to be shown here. Refer to ui.R and server.R at <a href="https://github.com/sur-tan/DevelopingDataProduct">https://github.com/sur-tan/DevelopingDataProduct</a> for the complete source codes. </p>
+
+<p>This is the example how the three main functions (countWords, countChars and findtop10) are called with the sample input text to produce the results.</p>
+
+<pre><code class="r">sample_text &lt;- &quot;This is my project for the Developing Data Proudct course, 
+Coursera Data Science Specialization. The project is due on 22 Nov 2015. 
+It is a simple shiny application that counts the number of words, characters
+and find the top 10 frequently used words and its percentage.&quot;
+
+numChars &lt;- countChars(sample_text)
+numWords &lt;- countWords(sample_text)
+</code></pre>
+
+<p>The number of characters: <strong><em>269</em></strong>.
+The number of words: <strong><em>46</em></strong>.</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Codes Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <hr>
+
+<p>The top 10 frequently used words are: </p>
+
+<pre><code class="r">findtop10(sample_text)
+</code></pre>
+
+<pre><code>##       Word Count Percent
+## 1      the     4   8.7 %
+## 2       is     3  6.52 %
+## 3      and     2  4.35 %
+## 4     data     2  4.35 %
+## 5  project     2  4.35 %
+## 6    words     2  4.35 %
+## 7       10     1  2.17 %
+## 8     2015     1  2.17 %
+## 9       22     1  2.17 %
+## 10       a     1  2.17 %
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='About Word Counter'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='How It Works'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Codes Example'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Codes Example'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
